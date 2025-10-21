@@ -1,79 +1,68 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Hospital Login</title>
+    <title>Patient Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: #f0f4f8;
+            background-color: #eef2f7;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
         .login-container {
-            background: #fff;
-            padding: 30px 40px;
+            background-color: white;
+            padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            width: 380px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            width: 350px;
         }
-        .login-container h2 {
+        h2 {
             text-align: center;
-            margin-bottom: 20px;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 15px;
+            color: #0078D4;
         }
         input[type="text"], input[type="password"] {
             width: 100%;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 6px;
             border: 1px solid #ccc;
-            box-sizing: border-box;
-            font-size: 15px;
         }
-        button {
-            width: 100%;
-            background: #007bff;
-            color: #fff;
-            padding: 12px;
+        input[type="submit"] {
+            background-color: #0078D4;
+            color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
+            padding: 10px;
+            width: 100%;
+            border-radius: 6px;
             cursor: pointer;
         }
-        button:hover {
-            background: #0056b3;
+        input[type="submit"]:hover {
+            background-color: #005a9e;
         }
-        p {
+        .msg {
             text-align: center;
-            margin-top: 10px;
-        }
-        a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
+            color: red;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Login</h2>
+        <h2>Patient Login</h2>
         <form action="LoginServlet" method="post">
-            <div class="form-group">
-                <input type="text" name="username" placeholder="Enter Username" required>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="Enter Password" required>
-            </div>
-            <button type="submit">Login</button>
+            <input type="text" name="email" placeholder="Enter Email" required><br>
+            <input type="password" name="password" placeholder="Enter Password" required><br>
+            <input type="submit" value="Login">
         </form>
-        <p>Don't have an account? <a href="register.jsp">Register</a></p>
+        <p class="msg">
+            <% 
+                String error = (String) request.getAttribute("errorMessage");
+                if (error != null) { out.print(error); }
+            %>
+        </p>
+        <p style="text-align:center;">Don’t have an account? <a href="register.jsp">Register</a></p>
     </div>
 </body>
 </html>

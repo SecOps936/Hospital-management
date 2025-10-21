@@ -1,2 +1,5 @@
+com/hospital/servlets/AddPatientServlet.class
+com/hospital/utils/DatabaseConnection.class
+com/hospital/servlet/RegisterServlet.class
 com/hospital/dao/DBConnection.class
 com/hospital/servlet/LoginServlet.class

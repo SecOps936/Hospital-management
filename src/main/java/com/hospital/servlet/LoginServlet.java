@@ -1,34 +1,43 @@
 package com.hospital.servlet;
 
-import com.hospital.dao.DBConnection;
-import java.io.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
+import jakarta.servlet.annotation.*;
+import java.io.*;
 import java.sql.*;
+import com.hospital.utils.DatabaseConnection;
 
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
+
+        String email = request.getParameter("email");
         String password = request.getParameter("password");
 
-        try (Connection con = DBConnection.getConnection()) {
-            PreparedStatement ps = con.prepareStatement("SELECT * FROM users WHERE username=? AND password=SHA2(?,256)");
-            ps.setString(1, username);
-            ps.setString(2, password);
-            ResultSet rs = ps.executeQuery();
+        try (Connection conn = DatabaseConnection.getConnection()) {
+            String query = "SELECT * FROM patients WHERE email = ? AND password = ?";
+            PreparedStatement stmt = conn.prepareStatement(query);
+            stmt.setString(1, email);
+            stmt.setString(2, password);
+            ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
                 HttpSession session = request.getSession();
-                session.setAttribute("username", username);
-                session.setAttribute("role", rs.getString("role"));
+                session.setAttribute("patientName", rs.getString("name"));
+                session.setAttribute("patientEmail", rs.getString("email"));
                 response.sendRedirect("dashboard.jsp");
             } else {
-                response.sendRedirect("login.jsp?error=1");
+                request.setAttribute("errorMessage", "Invalid email or password!");
+                RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
+                rd.forward(request, response);
             }
+
         } catch (Exception e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            throw new ServletException(e);
         }
     }
 }
+

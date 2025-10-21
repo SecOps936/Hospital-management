@@ -1,2 +1,5 @@
 /var/www/html/hospital-management/hospital-management/src/main/java/com/hospital/dao/DBConnection.java
+/var/www/html/hospital-management/hospital-management/src/main/java/com/hospital/servlet/AddPatientServlet.java
 /var/www/html/hospital-management/hospital-management/src/main/java/com/hospital/servlet/LoginServlet.java
+/var/www/html/hospital-management/hospital-management/src/main/java/com/hospital/servlet/RegisterServlet.java
+/var/www/html/hospital-management/hospital-management/src/main/java/com/hospital/utils/DatabaseConnection.java
